@@ -1,0 +1,69 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Tamu Kemenag Tanah Datar</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body class="guest-page">
+  <div class="guest-container">
+    <div class="guest-header">
+      <span class="badge" style="background:var(--accent); color:#fff; padding:4px 14px; border-radius:20px; font-size:0.65rem; font-weight:700; letter-spacing:1.5px;">ELECTRONIC GUEST SYSTEM</span>
+      <h1><i class="fas fa-mosque"></i> E-Tamu</h1>
+      <p>Kementerian Agama Kabupaten Tanah Datar</p>
+    </div>
+    <div id="locationStatus" class="status-box info" style="padding:12px 15px; border-radius:10px; margin-bottom:18px; font-size:0.85rem; display:flex; align-items:center; gap:8px; background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe;">
+      <i class="fas fa-spinner fa-spin"></i> Meminta akses lokasi...
+    </div>
+    <div class="guest-body" id="formArea">
+      <form id="guestForm" onsubmit="return submitGuest(event)">
+        <div class="form-group">
+          <label for="nama">Nama Lengkap *</label>
+          <div class="autocomplete"><input type="text" id="nama" class="form-input" placeholder="Ketik nama Anda..." autocomplete="off" required><div id="acList" class="ac-list" style="display:none;"></div></div>
+        </div>
+        <div class="form-group">
+          <label>Jenis Pengunjung *</label>
+          <div class="radio-group">
+            <div class="radio-opt active" onclick="setJenis('umum', this)"><i class="fas fa-user"></i><span>Umum</span></div>
+            <div class="radio-opt" onclick="setJenis('instansi', this)"><i class="fas fa-building"></i><span>Instansi</span></div>
+          </div>
+          <input type="hidden" id="jenis" value="umum">
+        </div>
+        <div class="form-group hidden" id="instansiGroup"><label for="instansi">Pilih Instansi *</label><select id="instansi" class="form-input"></select></div>
+        <div class="form-group"><label for="tujuanSeksi">Tujuan Seksi *</label><select id="tujuanSeksi" class="form-input" required></select></div>
+        <div class="form-group"><label for="noTelp">No. Telepon *</label><input type="tel" id="noTelp" class="form-input" placeholder="08xxxxxxxxxx" required></div>
+        <div class="form-group">
+          <label>Foto Selfie <small>(Opsional)</small></label>
+          <div class="selfie-box" id="selfieBox">
+            <div class="video-wrap"><video id="vid" autoplay playsinline class="hidden"></video><canvas id="can"></canvas></div>
+            <div class="cam-controls" style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary" id="btnCam" onclick="initCamera()"><i class="fas fa-camera"></i> Aktifkan Kamera</button>
+              <button type="button" class="btn btn-warning hidden" id="btnCap" onclick="capturePhoto()"><i class="fas fa-circle"></i> Ambil Foto</button>
+              <button type="button" class="btn btn-danger hidden" id="btnRetake" onclick="retakePhoto()"><i class="fas fa-redo"></i> Ulangi</button>
+            </div>
+          </div>
+          <input type="hidden" id="fotoSelfie">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; font-size:1rem;" id="btnSubmit"><i class="fas fa-paper-plane"></i> Daftar & Check-In</button>
+      </form>
+    </div>
+    <div class="success-screen hidden" id="successArea">
+      <div class="success-icon"><i class="fas fa-check"></i></div>
+      <h2>Berhasil Check-In!</h2>
+      <p id="succMsg" style="font-size:1.1rem; font-weight:500; color:var(--text); margin-bottom:8px;"></p>
+      <p id="succTime" style="color:var(--text-light);"></p>
+      <button class="btn btn-primary" style="margin-top:25px; padding:12px 24px;" onclick="resetForm()"><i class="fas fa-plus"></i> Tamu Berikutnya</button>
+    </div>
+    <div class="app-footer">
+      <p>© 2026 E-Tamu Kemenag Kab. Tanah Datar</p>
+      <p style="margin-top:4px;">Dibuat oleh <strong>Ihsan Putra Hanifi, S.Kom.</strong> <br> Pranata Komputer Ahli Pertama</p>
+      <div style="margin-top:10px;"><a href="dashboard.html"><i class="fas fa-lock"></i> Akses Dashboard Admin</a></div>
+    </div>
+  </div>
+  <script src="js/tamu.js"></script>
+</body>
+</html>
